@@ -10,7 +10,7 @@ import UIKit
 
 public struct SheetLayoutSettings {
 
-    var topMargin: CGFloat = 0
+    public var topMargin: CGFloat = 0
 
     public var minTopMargin: CGFloat = 0
     
@@ -25,10 +25,18 @@ public struct SheetLayoutSettings {
     
     /// footer view size
     public var footerSize: CGSize?
-    
+
+    /// section Inset
+    public var sectionInset: ((Int) -> UIEdgeInsets)?
     /// cell size
     public var itemSize: ((IndexPath) -> CGSize)?
-    
+
+    /// cell Horizontal spacing
+    public var sectionInteritemSpacing: ((Int) -> CGFloat)?
+
+    /// cell vertical spacing
+    public var sectionLineSpacing: ((Int) -> CGFloat)?
+
     /// section header size
     public var sectionHeaderSize: ((IndexPath) -> CGSize)?
     
