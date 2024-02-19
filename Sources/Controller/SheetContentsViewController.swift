@@ -152,7 +152,7 @@ private extension SheetContentsViewController {
         let bottomToolBarHeight: CGFloat = isToolBarHidden ? UIEdgeInsets.safeAreaInsets.bottom : SheetManager.shared.options.sheetToolBarHeight + UIEdgeInsets.safeAreaInsets.bottom
         collectionView?.layoutIfNeeded()
 
-        let screenHeight = UIScreen.main.bounds.height
+        let screenHeight = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.coordinateSpace.bounds.size.height ?? UIScreen.main.bounds.height
         let contentHeight = collectionView?.contentSize.height ?? 0
         let visibleHeight = min(contentHeight - layout.settings.topMargin, visibleContentsHeight)
         topMargin = isFullScreenContent ? 0 : max(screenHeight - layout.settings.minTopMargin - visibleHeight - bottomToolBarHeight, 0)
