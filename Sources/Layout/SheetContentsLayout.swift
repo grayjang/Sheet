@@ -99,7 +99,7 @@ extension SheetContentsLayout {
             contentHeight += currentSectionInset.bottom
 
             if let sectionFooterSize = settings.sectionFooterSize?(IndexPath(item: 1, section: section)), sectionFooterSize != .zero {
-                let sectionFooterAttributes = SheetLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, with: IndexPath(item: 1, section: section))
+                let sectionFooterAttributes = SheetLayoutAttributes(forSupplementaryViewOfKind: SheetLayoutElement.sectionFooter.kind, with: IndexPath(item: 1, section: section))
                 prepareSupplementrayElement(size: sectionFooterSize, type: .sectionFooter, attributes: sectionFooterAttributes)
             }
         }
