@@ -83,8 +83,8 @@ extension SheetContentsLayout {
                 let itemSize = settings.itemSize?(cellIndexPath) ?? .zero
                 x += itemSize.width + (settings.sectionInteritemSpacing?(section) ?? minimumInteritemSpacing)
 
-                if x + sectionInset.right >= collectionView.bounds.width {
-                    x = sectionInset.left
+                if x + currentSectionInset.right >= collectionView.bounds.width {
+                    x = currentSectionInset.left
                     y += itemSize.height + (settings.sectionLineSpacing?(section) ?? minimumLineSpacing)
                 }
 
