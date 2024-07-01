@@ -21,6 +21,7 @@ open class SheetContentsViewController: UICollectionViewController, SheetContent
     public var topMargin: CGFloat = 0
 
     public var sheetTopGradientViewHeight: CGFloat {
+        guard options.useSheetTopGradientView else { return 0 }
         return 56.0 + statusBarHeight
     }
 
@@ -89,21 +90,23 @@ open class SheetContentsViewController: UICollectionViewController, SheetContent
         let yOffset = scrollView.contentOffset.y
         topMargin = max(layout.settings.topMargin - yOffset, 0)
 
-        guard !isSheetTopGradientViewAnimating, let sheetTopGradientView else { return }
-        if yOffset > statusBarHeight && sheetTopGradientView.isHidden == true {
+        guard !isSheetTopGradientViewAnimating, let sheetTopGradientView = sheetTopGradientView else { return }
+        if topMargin < statusBarHeight && sheetTopGradientView.isHidden == true {
             isSheetTopGradientViewAnimating = true
-            UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                guard let self else { return }
-                sheetTopGradientView.isHidden = false
-                self.view.bringSubviewToFront(sheetTopGradientView)
+            sheetTopGradientView.alpha = 0.0
+            sheetTopGradientView.isHidden = false
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                sheetTopGradientView.alpha = 1.0
+                self?.view.bringSubviewToFront(sheetTopGradientView)
             }, completion: { [weak self] _ in
                 self?.isSheetTopGradientViewAnimating = false
             })
-        } else if yOffset <= statusBarHeight && sheetTopGradientView.isHidden == false {
+        } else if topMargin >= statusBarHeight && sheetTopGradientView.isHidden == false {
             isSheetTopGradientViewAnimating = true
-            UIView.animate(withDuration: 0.3, animations: {
-                sheetTopGradientView.isHidden = true
+            UIView.animate(withDuration: 0.2, animations: {
+                sheetTopGradientView.alpha = 0.0
             }, completion: { [weak self] _ in
+                sheetTopGradientView.isHidden = true
                 self?.isSheetTopGradientViewAnimating = false
             })
         }
