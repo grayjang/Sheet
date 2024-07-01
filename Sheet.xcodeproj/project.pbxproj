@@ -41,6 +41,7 @@
 		4AEF0F4B2162441200FF034E /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEF0F49216243C000FF034E /* UIEdgeInsets+Extension.swift */; };
 		4AEF0F4E216244A100FF034E /* Optional+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEF0F4C2162449F00FF034E /* Optional+Extension.swift */; };
 		4AEF0F5121624BF400FF034E /* MoveItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEF0F5021624BF400FF034E /* MoveItemViewController.swift */; };
+		8381AA602C3246F5004D10DD /* SheetGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8381AA5F2C3246F5004D10DD /* SheetGradientView.swift */; };
 		8933C7851EB5B820000D00A4 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8933C7841EB5B820000D00A4 /* Sheet.swift */; };
 		CE4924A3226FFD9C00033244 /* FullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4924A2226FFD9C00033244 /* FullViewController.swift */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		4AEF0F4C2162449F00FF034E /* Optional+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extension.swift"; sourceTree = "<group>"; };
 		4AEF0F5021624BF400FF034E /* MoveItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveItemViewController.swift; sourceTree = "<group>"; };
 		52D6D97C1BEFF229002C0205 /* Sheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8381AA5F2C3246F5004D10DD /* SheetGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetGradientView.swift; sourceTree = "<group>"; };
 		8933C7841EB5B820000D00A4 /* Sheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 		8933C7891EB5B82A000D00A4 /* SheetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetTests.swift; sourceTree = "<group>"; };
 		AD2FAA261CD0B6D800659CF4 /* Sheet.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Sheet.plist; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				4AEF0EEA216235F100FF034E /* Animator */,
 				4AEF0F4F216244CD00FF034E /* Extensions */,
 				8933C7841EB5B820000D00A4 /* Sheet.swift */,
+				8381AA5F2C3246F5004D10DD /* SheetGradientView.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -344,11 +347,12 @@
 				TargetAttributes = {
 					4AEF0F05216236A600FF034E = {
 						CreatedOnToolsVersion = 9.3;
-						DevelopmentTeam = SV5LTS7ED5;
+						DevelopmentTeam = LJV6HBLFS3;
 						ProvisioningStyle = Automatic;
 					};
 					52D6D97B1BEFF229002C0205 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = LJV6HBLFS3;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -421,6 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AEF0EFE216235F200FF034E /* SheetDecorationView.swift in Sources */,
+				8381AA602C3246F5004D10DD /* SheetGradientView.swift in Sources */,
 				4AEF0F4E216244A100FF034E /* Optional+Extension.swift in Sources */,
 				4AEF0F4521623FDD00FF034E /* SheetLayoutElement.swift in Sources */,
 				4AEF0F4221623F4600FF034E /* SheetManager.swift in Sources */,
@@ -465,10 +470,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SV5LTS7ED5;
+				DEVELOPMENT_TEAM = LJV6HBLFS3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Gwangbeom.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -494,10 +499,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SV5LTS7ED5;
+				DEVELOPMENT_TEAM = LJV6HBLFS3;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Example/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Gwangbeom.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -626,9 +631,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				DEFINES_MODULE = YES;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LJV6HBLFS3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -652,9 +657,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				DEFINES_MODULE = YES;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = LJV6HBLFS3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
