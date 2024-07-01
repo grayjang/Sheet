@@ -26,11 +26,7 @@ open class SheetContentsViewController: UICollectionViewController, SheetContent
     }
 
     private var statusBarHeight: CGFloat {
-        if #available(iOS 13.0, *) {
-            return UIApplication.shared.windows.first { $0.isKeyWindow }?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-        } else {
-            return UIApplication.shared.statusBarFrame.height
-        }
+        return UIApplication.shared.windows.first { $0.isKeyWindow }?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
     }
 
     public var contentScrollView: UIScrollView {
