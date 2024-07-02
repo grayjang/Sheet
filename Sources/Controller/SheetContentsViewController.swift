@@ -20,9 +20,8 @@ open class SheetContentsViewController: UICollectionViewController, SheetContent
 
     public var topMargin: CGFloat = 0
 
-    public var sheetTopGradientViewHeight: CGFloat {
-        guard options.useSheetTopGradientView else { return 0 }
-        return 56.0 + statusBarHeight
+    open var sheetTopGradientViewHeight: CGFloat? {
+        return nil
     }
 
     private var statusBarHeight: CGFloat {
@@ -165,7 +164,7 @@ private extension SheetContentsViewController {
     }
 
     func setupTopGradientView() {
-        guard sheetTopGradientViewHeight > 0 else { return }
+        guard let sheetTopGradientViewHeight else { return }
         sheetTopGradientView = SheetGradientView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: sheetTopGradientViewHeight))
         guard let sheetTopGradientView else { return }
         let backgroundColor = options.dimmingViewBackgroundColor

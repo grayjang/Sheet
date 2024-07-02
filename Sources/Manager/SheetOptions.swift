@@ -78,9 +78,6 @@ public struct SheetOptions {
     
     /// sheet background color
     public var sheetBackgroundColor: UIColor = .white
-
-    /// sheet top area gradient background view
-    public var useSheetTopGradientView = true
 }
 
 public struct SheetAnimationOption {
