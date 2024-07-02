@@ -9,14 +9,24 @@
 import UIKit
 
 open class SheetContentsViewController: UICollectionViewController, SheetContent {
+    private var sheetTopGradientView: SheetGradientView?
 
     private var options: SheetOptions {
         return SheetManager.shared.options
     }
 
     private var layout = SheetContentsLayout()
+    private var isSheetTopGradientViewAnimating = false
 
     public var topMargin: CGFloat = 0
+
+    open var sheetTopGradientViewHeight: CGFloat? {
+        return nil
+    }
+
+    private var statusBarHeight: CGFloat {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+    }
 
     public var contentScrollView: UIScrollView {
         return collectionView
@@ -72,7 +82,29 @@ open class SheetContentsViewController: UICollectionViewController, SheetContent
     }
 
     open override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        topMargin = max(layout.settings.topMargin - scrollView.contentOffset.y, 0)
+        let yOffset = scrollView.contentOffset.y
+        topMargin = max(layout.settings.topMargin - yOffset, 0)
+
+        guard !isSheetTopGradientViewAnimating, let sheetTopGradientView = sheetTopGradientView else { return }
+        if topMargin < statusBarHeight && sheetTopGradientView.isHidden == true {
+            isSheetTopGradientViewAnimating = true
+            sheetTopGradientView.alpha = 0.0
+            sheetTopGradientView.isHidden = false
+            UIView.animate(withDuration: 0.2, animations: { [weak self] in
+                sheetTopGradientView.alpha = 1.0
+                self?.view.bringSubviewToFront(sheetTopGradientView)
+            }, completion: { [weak self] _ in
+                self?.isSheetTopGradientViewAnimating = false
+            })
+        } else if topMargin >= statusBarHeight && sheetTopGradientView.isHidden == false {
+            isSheetTopGradientViewAnimating = true
+            UIView.animate(withDuration: 0.2, animations: {
+                sheetTopGradientView.alpha = 0.0
+            }, completion: { [weak self] _ in
+                sheetTopGradientView.isHidden = true
+                self?.isSheetTopGradientViewAnimating = false
+            })
+        }
     }
 
     open override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -128,6 +160,18 @@ private extension SheetContentsViewController {
         view.backgroundColor = .clear
         setupContainerView()
         setupDimmingView()
+        setupTopGradientView()
+    }
+
+    func setupTopGradientView() {
+        guard let sheetTopGradientViewHeight else { return }
+        sheetTopGradientView = SheetGradientView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: sheetTopGradientViewHeight))
+        guard let sheetTopGradientView else { return }
+        let backgroundColor = options.dimmingViewBackgroundColor
+        sheetTopGradientView.isHidden = true
+        view.addSubview(sheetTopGradientView)
+        let topGradientLayer = sheetTopGradientView.layer as? CAGradientLayer
+        topGradientLayer?.colors = [backgroundColor.cgColor, backgroundColor.cgColor, backgroundColor.withAlphaComponent(0).cgColor]
     }
 
     func setupContainerView() {
