@@ -53,30 +53,6 @@ public class SheetNavigationController: UINavigationController {
 
     
     private var isFirstCall: Bool = false
-    public override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        let rootViewController = viewControllers.first as? SheetContentsViewController
-        rootViewController?.reload()
-        let contentSize = rootViewController?.collectionView?.contentSize ?? .zero
-        let visibleContentsHeight = rootViewController?.visibleContentsHeight ?? 0
-        let visibleHeight = min(contentSize.height, visibleContentsHeight)
-        rootViewController?.collectionView?.transform = CGAffineTransform(translationX: 0, y: visibleHeight + options.sheetToolBarHeight)
-        sheetToolBarContainerView?.transform = CGAffineTransform(translationX: 0, y: SheetManager.shared.options.sheetToolBarHeight + UIEdgeInsets.safeAreaInsets.bottom)
-        
-        
-        UIView.animate(withDuration: animationItem.duration, delay: 0, usingSpringWithDamping: animationItem.springDumping, initialSpringVelocity: animationItem.initialSpringVelocity, options: animationItem.options, animations: {
-            rootViewController?.collectionView?.transform = .identity
-        }, completion: nil)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundView?.alpha = 1
-            self.sheetToolBarContainerView?.transform = .identity
-        }) { _ in
-            self.isFirstCall = true
-        }
-    }
-
     public override var prefersStatusBarHidden: Bool {
         return presentingViewController?.prefersStatusBarHidden ?? false
     }
@@ -136,6 +112,28 @@ public class SheetNavigationController: UINavigationController {
             }
         } else {
             self.toolBarBottomConstraint?.constant = bottomConstraint
+        }
+    }
+    
+    public func presentContent() {
+        let rootViewController = viewControllers.first as? SheetContentsViewController
+        rootViewController?.reload()
+        let contentSize = rootViewController?.collectionView?.contentSize ?? .zero
+        let visibleContentsHeight = rootViewController?.visibleContentsHeight ?? 0
+        let visibleHeight = min(contentSize.height, visibleContentsHeight)
+        rootViewController?.collectionView?.transform = CGAffineTransform(translationX: 0, y: visibleHeight + options.sheetToolBarHeight)
+        sheetToolBarContainerView?.transform = CGAffineTransform(translationX: 0, y: SheetManager.shared.options.sheetToolBarHeight + UIEdgeInsets.safeAreaInsets.bottom)
+        
+        
+        UIView.animate(withDuration: animationItem.duration, delay: 0, usingSpringWithDamping: animationItem.springDumping, initialSpringVelocity: animationItem.initialSpringVelocity, options: animationItem.options, animations: {
+            rootViewController?.collectionView?.transform = .identity
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            self?.backgroundView?.alpha = 1
+            self?.sheetToolBarContainerView?.transform = .identity
+        }) { [weak self] _ in
+            self?.isFirstCall = true
         }
     }
 }
